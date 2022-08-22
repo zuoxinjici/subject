@@ -1,4 +1,3 @@
-
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
@@ -10,24 +9,40 @@
       <span>关闭跳转</span>
       <button @click="changeStateFalse">确认</button>
     </div>
+    <div>
+      <p>checkboxs: {{ checkboxs }}</p>
+      <p>Vuex Count: {{ vxcount }}</p>
+      <button @click="updateVuexcount">VuexCount ++</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
+    msg: String,
+  },
+  computed: {
+    checkboxs() {
+      return this.$store.state.checkboxs;
+    },
+    vxcount() {
+      return this.$store.state.vxcount;
+    },
   },
   methods: {
     changeStateTrue() {
-      this.$store.commit('setChange', true)
+      this.$store.commit("setChange", true);
     },
     changeStateFalse() {
-      this.$store.commit('setChange', false)
-    }
-  }
-}
+      this.$store.commit("setChange", false);
+    },
+    updateVuexcount() {
+      this.$store.commit("updateVxcount", 1);
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
