@@ -6,28 +6,26 @@
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { setChange, setIncludeComponent, updateCheckboxs } from './mutation'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     canJump: localStorage.getItem('canJump') ? localStorage.getItem('canJump') : 0,
-    includeComponent: ''
+    includeComponent: '',
+    checkboxs: [],
+    vxcount: 0,
   },
   getters: {
   },
   mutations: {
-    setChange(state,val) {
-      state.canJump = val
-      if(val == true){
-        localStorage.setItem('canJump',1)
-      }else {
-        localStorage.setItem('canJump',0)
-      }
+    setChange,
+    setIncludeComponent,
+    updateCheckboxs,
+    updateVxcount(state, val) {
+      state.vxcount += val;
     },
-    setIncludeComponent(state,val){
-      state.includeComponent = val
-    }
   },
   actions: {
   },

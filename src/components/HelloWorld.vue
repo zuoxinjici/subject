@@ -37,6 +37,9 @@
         <el-button type="primary" @click="userLogin">确 定</el-button>
       </span>
     </el-dialog>
+    <p>checkboxs: {{ checkboxs }}</p>
+    <p>Vuex Count: {{ vxcount }}</p>
+    <button @click="updateVuexcount">VuexCount ++</button>
   </div>
 </template>
 
@@ -53,6 +56,14 @@ export default {
   },
   props: {
     msg: String
+  },
+  computed: {
+    checkboxs() {
+      return this.$store.state.checkboxs
+    },
+    vxcount() {
+      return this.$store.state.vxcount
+    }
   },
   methods: {
     changeStateTrue() {
@@ -99,6 +110,9 @@ export default {
           })
         }
       )
+    },
+    updateVuexcount() {
+      this.$store.commit('updateVxcount', 1)
     }
   }
 }
