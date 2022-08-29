@@ -1,4 +1,6 @@
 import $ from './baseReq'
+import qs from 'qs'
+
 
 export function test() {
   return $.get({
@@ -25,11 +27,19 @@ export function login(data) {
       return status < 300
     },
     transformRequest: function(data,headers) {
-      console.log('transformRequest修改数据',data)
+      console.log('transformRequest修改数据')
+      console.log(data)
       console.log(headers)
-      headers.testToken = 'testHeader'
+      data.add = "testAdd"
+      console.log(data)
+      return qs.stringify(data)
+    },
+    transformResponse: function(data,headers) {
+      console.log('transformResponse修改数据')
+      console.log(data)
       console.log(headers)
-      return data
+      console.log(data)
+      return qs.stringify(data)
     },
     onUploadProgress: function (progressEvent) {
       // 处理原生进度事件
