@@ -5,12 +5,29 @@ const baseAPI = axios.create({
   timeout: 3000,
 })
 
-const CancelToken = axios.CancelToken
-const source = CancelToken.source()
+let pending = []
+let removePending = (event) => {
+  for(let p in pending) {
+    if(pending[p].u === event.url + '&' + event.method) {
+      pending[p].f('取消请求')
+      pending.splice(p,1)
+    }
+  }
+}
 
+const CancelToken = axios.CancelToken
+let source = CancelToken.source()
 const reqInterceptors = baseAPI.interceptors.request.use(config => {
   console.log('请求拦截器被触发')
   config.headers.Token = 'testToken'
+  let noAllData = localStorage.getItem('noGetData')
+  console.log(noAllData)
+  if(noAllData === 'true'){
+    removePending(config)
+    config.cancelToken = new CancelToken( c => {
+      pending.push({u: config.url+ '&' + config.method, f: c})
+    })
+  }
   console.log(config)
   return config
 }, error => {
@@ -47,6 +64,7 @@ export default {
     let cancel = {
       cancelToken: source.token
     }
+    console.log(source)
     if(params) {
       options.params = params
     }
@@ -64,5 +82,7 @@ export default {
   }
 }
 export function cancelResquest() {
+  console.log(source)
   source.cancel('请求取消')
+  source = axios.CancelToken.source()
 }

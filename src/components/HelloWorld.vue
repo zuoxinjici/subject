@@ -10,16 +10,20 @@
       <button @click="changeStateFalse">确认</button>
     </div>
     <div>
-      <span>获取数据</span>
-      <button @click="getData">确认</button>
-    </div>
-    <div>
       <span>{{ isCancelValue ? '关闭' : '开启' }}取消获取数据</span>
       <button @click="isCancelValue = !isCancelValue">确认</button>
     </div>
     <div>
+      <span>获取数据</span>
+      <button @click="getData">确认</button>
+    </div>
+    <div>
       <span>并行请求数据</span>
       <button @click="getAllData">确认</button>
+    </div>
+    <div>
+      <span>{{ noGetData ? '获取' : '剔除' }}重复数据请求</span>
+      <button @click="noAllData">确认</button>
     </div>
     <el-dialog
       title="登录"
@@ -62,7 +66,8 @@ export default {
       dialogVisible: true,
       userName: '',
       passWord: '',
-      isCancelValue: false
+      isCancelValue: false,
+      noGetData: false
     }
   },
   props: {
@@ -90,7 +95,7 @@ export default {
           setTimeout(() => {
             this.$store.commit('pop')
             resolve('done')
-          }, 1000)
+          }, 10)
         )
       }
     },
@@ -104,7 +109,7 @@ export default {
       setTimeout(() => {
         console.log('取消请求')
         cancelResquest()
-      }, 100)
+      }, 10)
     },
     getData() {
       console.log('get数据')
@@ -125,6 +130,10 @@ export default {
           console.log('出现问题了！', err)
         }
       )
+    },
+    noAllData() {
+      this.noGetData = !this.noGetData
+      localStorage.setItem('noGetData', this.noGetData)
     },
     userLogin() {
       login({
@@ -153,6 +162,9 @@ export default {
     updateVuexcount() {
       this.$store.commit('updateVxcount', 1)
     }
+  },
+  beforeCreate() {
+    localStorage.setItem('noGetData', false)
   }
 }
 </script>
