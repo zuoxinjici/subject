@@ -35,7 +35,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "aboutView",
+  name: 'aboutView',
   data() {
     return {
       num: 0,
@@ -52,7 +52,7 @@ export default {
       },
     },
     ...mapState({
-      vxcount: "vxcount",
+      vxcount: (state) => state.count.vxcount,
     }),
   },
   methods: {
@@ -60,27 +60,27 @@ export default {
       this.$store.commit("updateVxcount", -2);
     },
     add() {
-      console.log("add");
-      this.num = this.num + 1;
+      console.log('add')
+      this.num = this.num + 1
     },
     reduce() {
       if (this.num > 0) {
-        this.num = this.num - 1;
+        this.num = this.num - 1
       }
     },
     async changeUpdate() {
       await setTimeout(() => {
-        console.log("settimeout");
-      }, 5000);
+        console.log('settimeout')
+      }, 5000)
     },
     keepAlive() {
-      this.$store.commit("setIncludeComponent", "aboutView");
-      // console.log(this.$store.state.includeComponent)
+      this.$store.commit('setIncludeComponent', 'aboutView')
+      console.log(this.$store.state.includeComponent)
     },
     dekeepAlive() {
-      this.$store.commit("setIncludeComponent", "view");
-      // console.log(this.$store.state.includeComponent)
-    },
+      this.$store.commit('setIncludeComponent', 'view')
+      console.log(this.$store.state.includeComponent)
+    }
   },
   beforeCreate() {
     // console.log('-----beforeCreate-----')
