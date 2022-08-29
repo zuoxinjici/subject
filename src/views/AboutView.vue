@@ -7,7 +7,7 @@
 <template>
   <div class="about" ref="abc">
     <h1>This is an about page</h1>
-    <div class="keep">
+    <!-- <div class="keep">
       <span>缓存的数据为{{ num }}</span>
       <button @click="add">+</button>
       <button @click="reduce">-</button>
@@ -19,7 +19,7 @@
     <div>
       <span>关闭页面缓存</span>
       <button @click="dekeepAlive">确认</button>
-    </div>
+    </div> -->
     <div>
       <input type="checkbox" id="cbox1" value="cbox1" v-model="checkboxs" />
       <label for="cbox1">cbox1</label>
