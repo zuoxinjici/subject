@@ -25,10 +25,10 @@ export default {
   },
   computed: {
     checkboxs() {
-      return this.$store.state.checkboxs;
+      return this.$store.state.checkbox.checkboxs;
     },
     vxcount() {
-      return this.$store.state.vxcount;
+      return this.$store.state.count.vxcount;
     },
   },
   methods: {

@@ -45,7 +45,7 @@ export default {
   computed: {
     checkboxs: {
       get() {
-        return this.$store.state.checkboxs;
+        return this.$store.state.checkbox.checkboxs;
       },
       set(value) {
         this.$store.commit("updateCheckboxs", value);
