@@ -1,18 +1,21 @@
 <template>
-  <div class="rect">
+  <div class="rect" :style="styleColor">
     <p @click="visible = !visible">Rect</p>
-    <button @click="count++">RectCount1 {{ count }}</button>
+    <p>name:{{name}}</p>
+    <!-- <button @click="count++">RectCount1 {{ count }}</button>
     <p>computed: {{ countListen }}</p>
     <p>watch: {{ countWatcher }}</p>
-    <p>RectCount2: {{ rectCount }}</p>
+    <p>RectCount2: {{ rectCount }}</p> -->
     <div class="children">
-      <SquareItem v-if="visible"></SquareItem>
-      <CircleItem v-if="visible" :rectCount.sync="rectCount"></CircleItem>
+      <SquareItem v-if="visible" :props1="practice1" :props2="practice2" :props3="practice3" @setRectColor="setColor"></SquareItem>
+      
+      <!-- <CircleItem v-if="visible" :rectCount.sync="rectCount"></CircleItem> -->
     </div>
   </div>
 </template>
 
 <script>
+//import Vue from "vue";
 //mport CircleItem from "./CircleItem.vue";
  //import SquareItem from "./SquareItem.vue";
 import { graph, graphCN } from "./dic";
@@ -25,7 +28,13 @@ export default {
     // 与 Vue 的渲染机制有关（？
     // 完成第一次加载后，后续切换页面等重新渲染，生命周期关系同预期则一致
      SquareItem: () => import("./SquareItem.vue"),
-     CircleItem: () => import('./CircleItem.vue'),
+     // CircleItem: () => import('./CircleItem.vue'),
+  },
+  provide(){
+    return {
+      theme:this.styleColor,
+      name:this.name
+    }
   },
   data() {
     return {
@@ -35,6 +44,14 @@ export default {
       graph,
       graphCN,
       visible: true,
+      practice1:'practice1',
+      practice2:'practice2',
+      practice3:'practice3',
+      styleColor:{
+        background:'orange'
+      },
+      name:'abc'
+
     };
   },
   computed: {
@@ -62,6 +79,12 @@ export default {
       );
       this.countWatcher = this.rectCount;
     },
+  },
+  methods:{
+    setColor(){
+      this.styleColor.background=this.styleColor.background==='green'?'orange':'green'
+      this.name=this.name==='abc'?'cba':'abc'
+    }
   },
   beforeCreate() {
     console.log(

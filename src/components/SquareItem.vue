@@ -1,8 +1,11 @@
 <template>
-  <div class="square">
-    <p  @click="visible = !visible">Square</p>
+  <div class="square" :style="styleColor">
+    <!-- <p  @click="visible = !visible">Square</p> -->
+    <p>props1:{{props1}}</p>
+    <p :style="{color:theme.background}">$attrs:{{$attrs}}</p>
     <div class="children">
-      <TriangleItem v-if="visible"></TriangleItem>
+      
+      <TriangleItem v-if="visible" v-bind="$attrs" v-on="$listeners" @setRectColor="setColor"></TriangleItem>
     </div>
   </div>
 </template>
@@ -14,9 +17,23 @@ export default {
     TriangleItem 
   //TriangleItem: () => import('./TriangleItem.vue'),
   },
+  props:{
+    props1:{
+      type:String
+    }
+  }, 
+  inject:['theme'],
   data() {
     return {
       visible: true,
+      styleColor:{
+        background:'gold'
+      }
+    }
+  },
+  methods:{
+    setColor(){
+      this.styleColor.background=this.styleColor.background==='gold'?'blue':'gold'
     }
   },
   beforeCreate() {
@@ -48,13 +65,16 @@ export default {
 </script>
 <style scoped>
 .square {
-  width: 300px;
-  height: 300px;
+  width: 800px;
+  height: 400px;
   background-color: gold;
 }
 .children {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+p:nth-child(n+1) {
+  font-size: 18px;
 }
 </style>
