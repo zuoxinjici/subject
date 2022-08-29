@@ -29,17 +29,20 @@
       <label for="cbox13">cbox3</label>
       <p>Vuex Count: {{ vxcount }}</p>
       <button @click="updateVuexcount">VuexCount -2</button>
+      <div><input v-model="multiple" placeholder="multiple * count"/></div>
+      <button @click="printCountGetter">Vuex Getter</button>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
 export default {
-  name: 'aboutView',
+  name: "aboutView",
   data() {
     return {
       num: 0,
       checkboxs1: [],
+      multiple: "",
     };
   },
   computed: {
@@ -56,31 +59,37 @@ export default {
     }),
   },
   methods: {
+    printCountGetter() {
+      console.log(
+        this.$store.getters.countGetter,
+        this.$store.getters.countGetterFn(this.multiple)
+      );
+    },
     updateVuexcount() {
       this.$store.commit("updateVxcount", -2);
     },
     add() {
-      console.log('add')
-      this.num = this.num + 1
+      console.log("add");
+      this.num = this.num + 1;
     },
     reduce() {
       if (this.num > 0) {
-        this.num = this.num - 1
+        this.num = this.num - 1;
       }
     },
     async changeUpdate() {
       await setTimeout(() => {
-        console.log('settimeout')
-      }, 5000)
+        console.log("settimeout");
+      }, 5000);
     },
     keepAlive() {
-      this.$store.commit('setIncludeComponent', 'aboutView')
-      console.log(this.$store.state.includeComponent)
+      this.$store.commit("setIncludeComponent", "aboutView");
+      console.log(this.$store.state.includeComponent);
     },
     dekeepAlive() {
-      this.$store.commit('setIncludeComponent', 'view')
-      console.log(this.$store.state.includeComponent)
-    }
+      this.$store.commit("setIncludeComponent", "view");
+      console.log(this.$store.state.includeComponent);
+    },
   },
   beforeCreate() {
     // console.log('-----beforeCreate-----')

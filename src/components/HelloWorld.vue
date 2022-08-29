@@ -38,84 +38,102 @@
       </span>
     </el-dialog>
     <p>checkboxs: {{ checkboxs }}</p>
+    <button @click="reset2">Reset Checkbox</button>
     <p>Vuex Count: {{ vxcount }}</p>
     <button @click="updateVuexcount">VuexCount ++</button>
   </div>
 </template>
 
 <script>
-import { test, login } from '@/utils/api/server'
+import { test, login } from "@/utils/api/server";
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   data() {
     return {
-      dialogVisible: true,
-      userName: '',
-      passWord: ''
-    }
+      dialogVisible: false,
+      userName: "",
+      passWord: "",
+    };
   },
   props: {
-    msg: String
+    msg: String,
   },
   computed: {
     checkboxs() {
-      return this.$store.state.checkbox.checkboxs
+      return this.$store.state.checkbox.checkboxs;
+    },
+    checkboxLength() {
+      return this.$store.state.checkbox.checkboxs.length;
     },
     vxcount() {
-      return this.$store.state.count.vxcount
-    }
+      return this.$store.state.count.vxcount;
+    },
   },
   methods: {
+    reset() {
+      this.$store.dispatch("reset");
+    },
+    async reset2() {
+      console.log('reset2');
+      while (this.checkboxs.length > 0) {
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            this.$store.commit("pop");
+            resolve("done");
+          }, 1000)
+        );
+      }
+    },
     changeStateTrue() {
-      this.$store.commit('setChange', true)
+      this.$store.commit("setChange", true);
     },
     changeStateFalse() {
-      this.$store.commit('setChange', false)
+      this.$store.commit("setChange", false);
     },
     getData() {
-      test()
-      console.log('get数据')
+      test();
+      console.log("get数据");
     },
     getAllData() {
       Promise.all([test(), test(), test()]).then(
         (arr) => {
-          console.log('并行数据请求完成')
-          console.log(arr)
+          console.log("并行数据请求完成");
+          console.log(arr);
         },
         (err) => {
-          console.log('出现问题了！', err)
+          console.log("出现问题了！", err);
         }
-      )
+      );
     },
     userLogin() {
       login({
         userName: this.userName,
-        passWord: this.passWord
+        passWord: this.passWord,
       }).then(
         (res) => {
-          console.log('触发成功then回调')
-          console.log(res)
-          this.dialogVisible = false
+          console.log("触发成功then回调");
+          console.log(res);
+          this.dialogVisible = false;
           this.$message({
-            message: '登入成功，欢迎访问',
-            type: 'success'
-          })
+            message: "登入成功，欢迎访问",
+            type: "success",
+          });
         },
         (rej) => {
-          console.log('触发失败then回调')
-          console.log(rej)
+          console.log("触发失败then回调");
+          console.log(rej);
           this.$message({
-            message: '登入失败，请检查账号或密码',
-            type: 'error'
-          })
+            message: "登入失败，请检查账号或密码",
+            type: "error",
+          });
         }
-      )
+      );
     },
     updateVuexcount() {
-      this.$store.commit('updateVxcount', 1)
-    }
-  }
-}
+      this.$store.commit("updateVxcount", 1);
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
