@@ -32,6 +32,11 @@ const routes = [
       console.log('路由独享守卫')
       next()
     }
+  },
+  {
+    path: '/practice3',
+    name: 'practice3',
+    component: () => import('../views/Practice3View.vue')
   }
 ]
 
@@ -39,22 +44,22 @@ const router = new VueRouter({
   routes
 })
 
-/* router.beforeEach((to,from,next) => {
-  console.log('全局前置守卫')
-  console.log(to)
-  console.log(from)
-  let canJump = localStorage.getItem('canJump')
-  canJump = Number(canJump)
-  if(!canJump && to.path !== '/') {
-    next('/')
-  } else {
-    next()
-  }
-})
-router.afterEach((to,from) => {
-  console.log('全局后置守卫')
-  console.log(to)
-  console.log(from)
-}) */
+// router.beforeEach((to,from,next) => {
+//   console.log('全局前置守卫')
+//   console.log(to)
+//   console.log(from)
+//   let canJump = localStorage.getItem('canJump')
+//   canJump = Number(canJump)
+//   if(!canJump && to.path !== '/') {
+//     next('/')
+//   } else {
+//     next()
+//   }
+// })
+// router.afterEach((to,from) => {
+//   console.log('全局后置守卫')
+//   console.log(to)
+//   console.log(from)
+// })
 
 export default router

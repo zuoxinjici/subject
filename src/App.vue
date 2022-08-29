@@ -9,7 +9,7 @@
     <nav>
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
-      <router-link to="/practice2">Practice 2</router-link>
+      <router-link to="/practice3">Practice 3</router-link>
     </nav>
     <keep-alive :include="$store.state.includeComponent">
     <router-view/>
