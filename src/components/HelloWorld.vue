@@ -1,14 +1,14 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <div>
+    <!-- <div>
       <span>开启跳转</span>
       <button @click="changeStateTrue">确认</button>
     </div>
     <div>
       <span>关闭跳转</span>
       <button @click="changeStateFalse">确认</button>
-    </div>
+    </div> -->
     <div>
       <span>{{ isCancelValue ? '关闭' : '开启' }}取消获取数据</span>
       <button @click="isCancelValue = !isCancelValue">确认</button>
@@ -50,7 +50,7 @@
       </span>
     </el-dialog>
     <p>checkboxs: {{ checkboxs }}</p>
-    <button @click="reset2">Reset Checkbox</button>
+    <button @click="reset">Reset Checkbox</button>
     <p>Vuex Count: {{ vxcount }}</p>
     <button @click="updateVuexcount">VuexCount ++</button>
   </div>
@@ -99,15 +99,9 @@ export default {
           setTimeout(() => {
             this.$store.commit('pop')
             resolve('done')
-          }, 10)
+          }, 1000)
         )
       }
-    },
-    changeStateTrue() {
-      this.$store.commit('setChange', true)
-    },
-    changeStateFalse() {
-      this.$store.commit('setChange', false)
     },
     isCancel() {
       setTimeout(() => {
