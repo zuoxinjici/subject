@@ -17,6 +17,7 @@ let removePending = (event) => {
 
 const CancelToken = axios.CancelToken
 let source = CancelToken.source()
+
 const reqInterceptors = baseAPI.interceptors.request.use(config => {
   console.log('请求拦截器被触发')
   config.headers.Token = 'testToken'
@@ -111,6 +112,7 @@ export default {
     return baseAPI.delete(url, data, options)
   },
 }
+
 export function cancelResquest() {
   console.log(source)
   source.cancel('请求取消')
