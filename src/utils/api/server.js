@@ -1,7 +1,22 @@
 import $ from './baseReq'
 import qs from 'qs'
 
+export function putData() {
+  return $.put({
+    url: '/put'
+  })
+}
 
+export function patch() {
+  return $.patch({
+    url: '/patch'
+  })
+}
+export function deleteData() {
+  return $.delete({
+    url: '/delete'
+  })
+}
 export function test() {
   return $.get({
     url: '/',

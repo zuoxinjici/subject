@@ -79,7 +79,37 @@ export default {
       options.params = params
     }
     return baseAPI.post(url, data, options)
-  }
+  },
+  put({url, params, data, ...config}) {
+    console.log('请求发送')
+    let options = {}
+    console.log(config)
+    Object.assign(options,config)
+    if(params) {
+      options.params = params
+    }
+    return baseAPI.put(url, data, options)
+  },
+  patch({url, params, data, ...config}) {
+    console.log('请求发送')
+    let options = {}
+    console.log(config)
+    Object.assign(options,config)
+    if(params) {
+      options.params = params
+    }
+    return baseAPI.patch(url, data, options)
+  },
+  delete({url, params, data, ...config}) {
+    console.log('请求发送')
+    let options = {}
+    console.log(config)
+    Object.assign(options,config)
+    if(params) {
+      options.params = params
+    }
+    return baseAPI.delete(url, data, options)
+  },
 }
 export function cancelResquest() {
   console.log(source)

@@ -25,6 +25,10 @@
       <span>{{ noGetData ? '获取' : '剔除' }}重复数据请求</span>
       <button @click="noAllData">确认</button>
     </div>
+    <div>
+      <span>测试其余请求</span>
+      <button @click="testReq">确认</button>
+    </div>
     <el-dialog
       title="登录"
       :visible.sync="dialogVisible"
@@ -58,7 +62,7 @@
 //   removeResInterceptors
 // } from '@/utils/api/baseReq'
 import { cancelResquest } from '@/utils/api/baseReq'
-import { test, login } from '@/utils/api/server'
+import { test, login, putData, patch, deleteData } from '@/utils/api/server'
 export default {
   name: 'HelloWorld',
   data() {
@@ -134,6 +138,11 @@ export default {
     noAllData() {
       this.noGetData = !this.noGetData
       localStorage.setItem('noGetData', this.noGetData)
+    },
+    testReq() {
+      putData()
+      patch()
+      deleteData()
     },
     userLogin() {
       login({
